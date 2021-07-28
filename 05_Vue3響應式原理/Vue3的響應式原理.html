@@ -17,6 +17,7 @@
             age: 18
         }
 
+        //#region 
         // 模擬Vue2響應式
         // let p = {}
         // Object.defineProperty(p, 'name', {
@@ -37,23 +38,58 @@
         //         person.age = value
         //     }
         // })
+        //#endregion
 
         // 模擬Vue3響應式
         const p = new Proxy(person, {
             get(target, propName) {
                 console.log(`已讀取  p 身上的 ${propName} 屬性`)
-                return target[propName]
+                return Reflect.get(target, propName)
             },
             set(target, propName, value) {
-                console.log(`已修改  p 身上的 ${propName} 屬性, 正要去更新介面 `)
-                target[propName] = value
+                console.log(`已修改  p 身上的 ${propName} 屬性, 正要去更新介面 `);
+                Reflect.set(target, propName, value)
             },
             deleteProperty(target, propName) {
                 console.log(`已刪除  p 身上的 ${propName} 屬性, 正要去更新介面 `)
-                return delete target[propName]
+                return Reflect.deleteProperty(target, propName)
 
             }
         })
+
+
+        //#region 
+        // let obj = {
+        //     a: 1,
+        //     b: 2
+        // };
+
+        // // 透過Object.defineProperty 去操作
+        // Object.defineProperty(obj, 'c', {
+        //     get() {
+        //         return 3
+        //     }
+        // })
+
+        // Object.defineProperty(obj, 'c', {
+        //     get() {
+        //         return 4
+        //     }
+        // })
+
+        // // 透過Reflect.defineProperty 去操作
+        // const x1 = Reflect.defineProperty(obj, 'c', {
+        //     get() {
+        //         return 3
+        //     }
+        // })
+
+        // const x2 = Reflect.defineProperty(obj, 'c', {
+        //     get() {
+        //         return 4
+        //     }
+        // })
+        //#endregion
     </script>
 </body>
 
