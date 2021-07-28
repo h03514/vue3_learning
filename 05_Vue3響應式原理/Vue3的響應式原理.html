@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        // 源數據
+        let person = {
+            name: '張三',
+            age: 18
+        }
+
+        // 模擬Vue2響應式
+        // let p = {}
+        // Object.defineProperty(p, 'name', {
+        //     get() {
+        //         return person.name
+        //     },
+        //     set(value) {
+        //         console.log('使用者已修改, 更新介面')
+        //         person.name = value
+        //     }
+        // })
+        // Object.defineProperty(p, 'age', {
+        //     get() {
+        //         return person.age
+        //     },
+        //     set(value) {
+        //         console.log('使用者已修改, 更新介面')
+        //         person.age = value
+        //     }
+        // })
+
+        // 模擬Vue3響應式
+        const p = new Proxy(person, {
+            get(target, propName) {
+                console.log(`已讀取  p 身上的 ${propName} 屬性`)
+                return target[propName]
+            },
+            set(target, propName, value) {
+                console.log(`已修改  p 身上的 ${propName} 屬性, 正要去更新介面 `)
+                target[propName] = value
+            },
+            deleteProperty(target, propName) {
+                console.log(`已刪除  p 身上的 ${propName} 屬性, 正要去更新介面 `)
+                return delete target[propName]
+
+            }
+        })
+    </script>
+</body>
+
+</html>
