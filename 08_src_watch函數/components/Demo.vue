@@ -66,7 +66,7 @@ export default {
     // 特殊情況
     watch(()=>person.job, (newValue, oldValue) => {
       console.log("person的 job 變了 ", newValue, oldValue);
-    },{deep:true});
+    },{deep:true}); //此處由於監試的是reactive定義的對象中的某個屬性, 所以deep配置有效
     return {
       sum,
       msg,
